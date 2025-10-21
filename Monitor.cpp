@@ -23,6 +23,7 @@ bool is_vowel(string st)
 void Monitor::add_to_monitor(string letter, string t_name, int t_c)
 {
 	unique_lock<mutex> lk(mutex_for_monitor);
+	if (monitor_finished) return;
 	if (is_vowel(letter)) {
 		monitor_string.append(letter);
 		vowels_count++;
@@ -34,13 +35,13 @@ void Monitor::add_to_monitor(string letter, string t_name, int t_c)
 		vowels_count = vowels_count - 3;
 		monitor_string.append(letter);
 	}
+	cout << "Iter: " << t_c << " " << t_name << ": added letter: " << letter << endl;
 	
-	if (t_c >= 15) {
+	if (t_c == 14 && !monitor_finished) {
 		monitor_finished = true;
 		std::cout << t_name << "=========reached 15 letters=========" << endl;
 		cv_vowel_add.notify_all();
 	}
-	cout << "Iter: " << t_c << " " << t_name << ": added letter: " << letter << endl;
 }
 
 string Monitor::get_from_monitor()

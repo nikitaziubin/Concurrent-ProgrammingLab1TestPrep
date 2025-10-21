@@ -6,7 +6,7 @@
 using namespace std;
 
 void process(string letter, Monitor &monitor, string t_n, int t_count) {
-	while (!Monitor::monitor_finished && t_count != 16) {
+	while (!Monitor::monitor_finished && t_count < 15) {
 		monitor.add_to_monitor(letter, t_n, t_count);
 		t_count++;
 	}
