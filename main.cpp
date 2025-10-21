@@ -23,14 +23,14 @@ int main() {
 	thread tC(process, "C", ref(monitor), "tC", tC_count);
 
 	while (!Monitor::monitor_finished) {
-		cout << "Monitor contains: " << monitor.remove_from_monitor() << endl;
+		cout << "Monitor contains: " << monitor.get_from_monitor() << endl;
 	}
 
 	tA.join();
 	tB.join();
 	tC.join();
 
-	cout << "\n\n\nFinal monitor result: " << monitor.remove_from_monitor() << endl;
-	cout << "Final monitor length: " << monitor.remove_from_monitor().length() << endl;
+	cout << "\n\n\nFinal monitor result: " << monitor.get_from_monitor() << endl;
+	cout << "Final monitor length: " << monitor.get_from_monitor().length() << endl;
 	return 0;
 }
