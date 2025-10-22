@@ -6,7 +6,7 @@
 using namespace std;
 
 void process(string letter, Monitor &monitor, string t_n, int t_count) {
-	while (!Monitor::monitor_finished && t_count < 15) {
+	while (t_count < 15) {
 		monitor.add_to_monitor(letter, t_n, t_count);
 		t_count++;
 	}
@@ -22,7 +22,7 @@ int main() {
 	thread tB(process, "B", ref(monitor), "tB", tB_count);
 	thread tC(process, "C", ref(monitor), "tC", tC_count);
 
-	while (!Monitor::monitor_finished) {
+	while (!Monitor::get_monitor_status()) {
 		cout << "Monitor contains: " << monitor.get_from_monitor() << endl;
 	}
 
